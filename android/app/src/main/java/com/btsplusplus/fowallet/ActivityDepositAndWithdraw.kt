@@ -9,6 +9,7 @@ import bitshares.*
 import com.btsplusplus.fowallet.gateway.GatewayAssetItemData
 import com.btsplusplus.fowallet.gateway.GatewayBase
 import com.btsplusplus.fowallet.gateway.RuDEX
+import com.btsplusplus.fowallet.gateway.XBTS
 import com.btsplusplus.fowallet.utils.VcUtils
 import com.fowallet.walletcore.bts.ChainObjectManager
 import com.fowallet.walletcore.bts.WalletManager
@@ -112,6 +113,26 @@ class ActivityDepositAndWithdraw : BtsppActivity() {
                     })
                 })
             })
+            put(JSONObject().apply {
+                put("name", "XBTS")
+                put("api", XBTS().initWithApiConfig(JSONObject().apply {
+                    put("base", "https://apis.xbts.io/api/v1")
+                    put("coin_list", "/coins")
+                    put("request_deposit_address", "/wallets/%s/new-deposit-address")
+                    put("check_address", "/wallets/%s/check-address")
+                }))
+                put("helps", JSONArray().apply {
+                    put(JSONObject().apply {
+                        put("title", "Twitter")
+                        put("value", "https://twitter.com/XBTS_EXCHANGE")
+                    })
+                    put(JSONObject().apply {
+                        put("title", R.string.kVcDWHelpTitleTelegram.xmlstring(ctx))
+                        put("value", "https://t.me/xbtsio")
+                    })
+                })
+            })
+
         }
 
         //  初始化默认网关
